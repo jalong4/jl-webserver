@@ -17,6 +17,18 @@ app.get('/', function (req, res) {
 
 })
 
+app.post('/register', function (req, res) {
+  res.send({
+    message: `User ${req.body.email} registered`
+  })
+})
+
+app.post('/login', function (req, res) {
+  res.send({
+    message: `User ${req.body.email} successfully logged in...`
+  })
+})
+
 app.get('/status', function (req, res) {
   res.send({
     message: 'Server is available'
