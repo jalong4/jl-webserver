@@ -1,4 +1,8 @@
 module.exports = {
-  port: process.env.PORT || 3000,
-  dbUrl: process.env.DB_URL || 'mongodb://localhost/jl-db'
+  port: process.env.PORT || 8081,
+  dbUrl: process.env.DB_URL || 'mongodb://localhost/jl-db',
+  password: {
+    regex: process.env.PASSWORD_REGEX || '(?=.{6,})',
+    errorMessage: process.env.PASSWORD_ERROR_MESSAGE || 'The password must be at least 6 characters.'
+  }
 }

@@ -10,10 +10,12 @@
   "author": "Jim Long",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "*",
     "cors": "^2.8.4",
     "eslint": "^4.15.0",
     "express": "*",
+    "joi": "^13.1.0",
     "mongoose": "*",
     "morgan": "^1.9.0",
     "nodemon": "^1.14.11"

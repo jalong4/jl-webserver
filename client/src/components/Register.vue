@@ -1,20 +1,31 @@
 <template>
-    <div>
-        <h1>Register</h1>
-        <input
-            type="email"
-            name="email"
+  <v-layout column>
+    <v-flex xs6 offset-xs3>
+      <panel title="Sign Up">
+        <form autocomplete="off">
+          <v-text-field
+            label="Email"
             v-model="email"
-            placeholder="Email" />
-        <br>
-        <input
+          ></v-text-field>
+          <br>
+          <v-text-field
+            label="Password"
             type="password"
-            name="password"
             v-model="password"
-            placeholder="Password" />
+          ></v-text-field>
+        </form>
         <br>
-        <button @click="register">Register</button>
-    </div>
+        <div class="danger-alert" v-html="error" />
+        <br>
+        <v-btn
+          dark
+          class="cyan"
+          @click="register">
+          Sign Up
+        </v-btn>
+      </panel>
+    </v-flex>
+  </v-layout>
 </template>
 <script>
 import Auth from '@/services/Auth'
@@ -28,13 +39,21 @@ export default {
   },
   methods: {
     async register () {
-      console.log('Calling Register API')
-      const response = await Auth.register({
-        email: this.email,
-        password: this.password
-      })
-      console.log(response.data)
+      try {
+        this.error = null
+        const response = await Auth.register({
+          email: this.email,
+          password: this.password
+        })
+        console.log('Registered: ', response.data)
+      } catch (error) {
+        this.error = error.response.data.error
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+
+</style>
