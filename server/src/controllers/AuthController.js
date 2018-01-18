@@ -1,4 +1,13 @@
 const Users = require('../models/Users')
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
+
+function jwtSignUser (user) {
+  const ONE_WEEK = 60 * 60 * 24 * 7
+  return jwt.sign(user, config.authentication.jwtSecret, {
+    expiresIn: ONE_WEEK
+  })
+}
 
 module.exports = {
   register (req, res) {
@@ -27,7 +36,10 @@ module.exports = {
         }
 
         console.log(`User ${user.email} successfully registered...`)
-        return res.json(user)
+        return res.json({
+          user: user,
+          token: jwtSignUser(user.toJSON())
+        })
       })
     })
   },
@@ -45,9 +57,6 @@ module.exports = {
         return res.status(403).send({error: 'Invalid email or password'})
       }
 
-      // return res.send({
-      //   message: `User ${req.body.email} successfully logged in...`})
-
       user.comparePassword(req.body.password, function (err, match) {
         if (err) {
           return res.status(500).send({
@@ -55,9 +64,9 @@ module.exports = {
           })
         }
         if (match) {
-          return res.send({
+          return res.json({
             user: user,
-            message: `User ${req.body.email} successfully logged in...`
+            token: jwtSignUser(user.toJSON())
           })
         }
         res.status(403).send({error: 'Invalid email or password'})
