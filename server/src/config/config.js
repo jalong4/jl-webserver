@@ -1,6 +1,7 @@
 module.exports = {
   port: process.env.PORT || 8081,
-  dbUrl: process.env.DB_URL || 'mongodb://localhost/jl-db',
+  mongoDbUriLocal: process.env.MONGODB_URI || 'mongodb://localhost/jl-db',
+  mongoDbUri: process.env.MONGODB_URI || 'mongodb://admin:Admin0708@ds239117.mlab.com:39117/jl-db',
   authentication: {
     jwtSecret: process.env.JWT_SECRET || 'secret'
   },

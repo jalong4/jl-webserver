@@ -14,8 +14,8 @@ module.exports = (app) => {
   app.delete('/user', UsersController.deleteUserByEmail)
   app.get('/user', UsersController.getUserByEmail)
 
-  app.get('/media', MediaController.getMedia)
-  app.get('/projects', ProjectsController.getProjects)
+  app.get('/media', MediaController.index)
+  app.get('/projects', ProjectsController.index)
 
   app.get('/status', function (req, res) {
     res.send({message: 'Server is available'})

@@ -6,7 +6,6 @@ const projectsSchema = mongoose.Schema({
 
 var Projects = module.exports = mongoose.model('Projects', projectsSchema)
 
-// Get Media
-module.exports.getProjects = function (callback, limit) {
+module.exports.index = function (callback, limit) {
   Projects.find(callback).limit(limit)
 }

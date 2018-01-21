@@ -4,20 +4,21 @@
   "description": "Jim Long's WebServer",
   "main": "app.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
+    "start": "node src/app.js",
+    "start2": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
     "lint": "node ./node_modules/eslint/bin/eslint **/*.js"
   },
   "author": "Jim Long",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "*",
+    "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "eslint": "^4.15.0",
-    "express": "*",
+    "express": "^4.16.2",
     "joi": "^13.1.0",
     "jsonwebtoken": "^8.1.0",
-    "mongoose": "*",
+    "mongoose": "^5.0.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.14.11",
     "passport": "^0.4.0"

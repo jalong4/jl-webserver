@@ -1,8 +1,8 @@
 const Media = require('../models/Media')
 
 module.exports = {
-  getMedia (req, res) {
-    Media.getMedia(function (err, media) {
+  index (req, res) {
+    Media.index(function (err, media) {
       if (err) {
         res.send({error: err.message})
       } else {

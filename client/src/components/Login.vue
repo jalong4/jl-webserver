@@ -25,8 +25,7 @@
   </v-layout>
 </template>
 <script>
-import Auth from '@/services/Auth'
-import Panel from '@/components/globals/Panel'
+import Auth from '@/services/AuthServices'
 
 export default {
   data () {
@@ -47,13 +46,11 @@ export default {
         console.log('Logged in: ', response.data)
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({name: 'root'})
       } catch (error) {
         this.error = error.response.data.error
       }
     }
-  },
-  components: {
-    Panel
   }
 }
 </script>

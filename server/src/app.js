@@ -8,7 +8,13 @@ const config = require('./config/config')
 
 const app = express()
 
-mongoose.connect(config.dbUrl)
+mongoose.connect(config.mongoDbUri, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the server. Please start the server. Error:', err)
+  } else {
+    console.log(`Connected to mongodb at uri: ${config.mongoDbUri}`)
+  }
+})
 
 // Middleware
 app.use(bodyParser.json())
