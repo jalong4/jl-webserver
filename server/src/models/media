@@ -13,3 +13,17 @@ var Media = module.exports = mongoose.model('Media', mediaSchema)
 module.exports.index = function (callback, limit) {
   Media.find(callback).limit(limit)
 }
+
+// Get
+module.exports.get = function (id, callback) {
+  Media.findById(id, callback)
+}
+
+// Delete
+module.exports.delete = function (id, callback) {
+  if (id.match(/^[0-9a-fA-F]{24}$/)) {
+    Media.findByIdAndRemove(id, callback)
+  } else {
+    callback(new Error(`Invalid Media Id: ${id}`), null)
+  }
+} 

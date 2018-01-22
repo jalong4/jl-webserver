@@ -42,17 +42,17 @@ usersSchema.methods.comparePassword = function (password, callback) {
 var Users = module.exports = mongoose.model('Users', usersSchema)
 
 // Get Users
-module.exports.getUsers = function (callback, limit) {
+module.exports.index = function (callback, limit) {
   Users.find(callback).limit(limit)
 }
 
-// Get UserById
-module.exports.getUserById = function (id, callback) {
+// Get
+module.exports.get = function (id, callback) {
   Users.findById(id, callback)
 }
 
-// Delete UserById
-module.exports.deleteUserById = function (id, callback) {
+// Delete
+module.exports.delete = function (id, callback) {
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     Users.remove({_id: id}, callback)
   } else {
@@ -66,7 +66,7 @@ module.exports.getUserByAttribute = function (obj, callback) {
   Users.findOne(obj, callback)
 }
 
-// Create User
-module.exports.createUser = function (user, callback) {
+// Create
+module.exports.create = function (user, callback) {
   Users.create(user, callback)
 }

@@ -4,8 +4,22 @@ const projectsSchema = mongoose.Schema({
   description: {type: String, required: true}
 })
 
-var Projects = module.exports = mongoose.model('Projects', projectsSchema)
+const Projects = module.exports = mongoose.model('Projects', projectsSchema)
 
 module.exports.index = function (callback, limit) {
   Projects.find(callback).limit(limit)
+}
+
+// Get
+module.exports.get = function (id, callback) {
+  Projects.findById(id, callback)
+}
+
+// Delete
+module.exports.delete = function (id, callback) {
+  if (id.match(/^[0-9a-fA-F]{24}$/)) {
+    Projects.findByIdAndRemove(id, callback)
+  } else {
+    callback(new Error(`Invalid Project Id: ${id}`), null)
+  }
 }

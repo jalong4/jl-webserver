@@ -27,8 +27,7 @@ module.exports = {
         })
       }
 
-      console.log(`Creating user ${JSON.stringify(newUser)}`)
-      Users.createUser(newUser, function (err, user) {
+      Users.create(newUser, function (err, user) {
         if (err) {
           return res.status(500).send({
             error: err.message
