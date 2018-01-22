@@ -4,9 +4,10 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const config = require('./config/config')
-// const path = require('path')
 
 const app = express()
+
+app.use(express.static('dist'))
 
 mongoose.connect(config.mongoDbUri, function (err, db) {
   if (err) {
