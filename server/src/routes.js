@@ -18,7 +18,7 @@ module.exports = (app) => {
   app.get('/api/media', MediaController.index)
   app.get('/api/projects', ProjectsController.index)
 
-  app.get('/status', function (req, res) {
+  app.get('/api/status', function (req, res) {
     res.send({message: 'Server is available'})
   })
 }
