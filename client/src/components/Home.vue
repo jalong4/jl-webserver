@@ -32,7 +32,9 @@ export default {
   data () {
     return {
       media: [],
-      projects: []
+      projects: [],
+      mediaSearchText: '',
+      projectsSearchText: ''
     }
   },
   methods: {

@@ -2,13 +2,25 @@ const Users = require('../models/Users')
 
 module.exports = {
   index (req, res) {
-    Users.index(function (err, users) {
-      if (err) {
-        res.status(400).send({message: err.message})
-      } else {
-        res.json(users)
-      }
-    })
+    const search = req.query.search
+
+    if (search) {
+      Users.search(search, function (err, projects) {
+        if (err) {
+          res.send({error: err.message})
+        } else {
+          res.json(projects)
+        }
+      })
+    } else {
+      Users.index(function (err, users) {
+        if (err) {
+          res.status(400).send({message: err.message})
+        } else {
+          res.json(users)
+        }
+      })
+    }
   },
 
   get (req, res) {
@@ -22,14 +34,13 @@ module.exports = {
   },
 
   delete (req, res) {
-    Users.delete(req.params.id, function (err, response) {
-      const statusCode = JSON.parse(response).n
+    Users.delete(req.params.id, function (err, doc) {
       if (err) {
         res.status(400).send({message: err.message})
-      } else if (statusCode === 0) {
+      } else if (doc == null) {
         res.status(401).send({message: `User Id: ${req.params.id} does not exist.`})
       } else {
-        res.send({message: `Deleted userId ${req.params.id}`})
+        res.send({message: `Deleted User Id ${req.params.id}`})
       }
     })
   },

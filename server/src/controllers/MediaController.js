@@ -2,17 +2,29 @@ const Media = require('../models/Media')
 
 module.exports = {
   index (req, res) {
-    Media.index(function (err, media) {
-      if (err) {
-        res.send({error: err.message})
-      } else {
-        res.json(media)
-      }
-    })
+    const search = req.query.search
+
+    if (search) {
+      Media.search(search, function (err, projects) {
+        if (err) {
+          res.send({error: err.message})
+        } else {
+          res.json(projects)
+        }
+      })
+    } else {
+      Media.index(function (err, media) {
+        if (err) {
+          res.send({error: err.message})
+        } else {
+          res.json(media)
+        }
+      })
+    }
   },
 
   post (req, res) {
-    Media.create(req.body, function (err, doc) {
+    Media.post(req.body, function (err, doc) {
       if (err) {
         console.log('Error: ', err)
         return res.status(500).send({

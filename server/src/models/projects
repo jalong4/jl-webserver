@@ -15,6 +15,18 @@ module.exports.get = function (id, callback) {
   Projects.findById(id, callback)
 }
 
+// Search
+module.exports.search = function (search, callback) {
+  const regExp = new RegExp(search, 'i')
+  const searchArray = [{name: regExp}, {description: regExp}]
+  Projects.find({'$or': searchArray}).exec(callback)
+}
+
+// Post
+module.exports.post = function (project, callback) {
+  Projects.create(project, callback)
+}
+
 // Delete
 module.exports.delete = function (id, callback) {
   if (id.match(/^[0-9a-fA-F]{24}$/)) {

@@ -51,10 +51,22 @@ module.exports.get = function (id, callback) {
   Users.findById(id, callback)
 }
 
+// Search
+module.exports.search = function (search, callback) {
+  const regExp = new RegExp(search, 'i')
+  const searchArray = [{email: regExp}]
+  Users.find({'$or': searchArray}).exec(callback)
+}
+
+// Register
+module.exports.register = function (user, callback) {
+  Users.create(user, callback)
+}
+
 // Delete
 module.exports.delete = function (id, callback) {
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    Users.remove({_id: id}, callback)
+    Users.findByIdAndRemove(id, callback)
   } else {
     callback(new Error(`Invalid User Id: ${id}`), null)
   }
@@ -66,7 +78,3 @@ module.exports.getUserByAttribute = function (obj, callback) {
   Users.findOne(obj, callback)
 }
 
-// Create
-module.exports.create = function (user, callback) {
-  Users.create(user, callback)
-}

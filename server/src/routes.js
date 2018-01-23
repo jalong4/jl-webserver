@@ -21,6 +21,7 @@ module.exports = (app) => {
   app.delete('/api/media/:id', MediaController.delete)
 
   app.get('/api/projects', ProjectsController.index)
+  app.get('/api/projects', ProjectsController.index)
   app.post('/api/projects', ProjectsController.post)
   app.get('/api/project/:id', ProjectsController.get)
   app.delete('/api/project/:id', ProjectsController.delete)

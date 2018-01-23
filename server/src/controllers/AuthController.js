@@ -27,7 +27,7 @@ module.exports = {
         })
       }
 
-      Users.create(newUser, function (err, user) {
+      Users.register(newUser, function (err, user) {
         if (err) {
           return res.status(500).send({
             error: err.message

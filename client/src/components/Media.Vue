@@ -4,9 +4,13 @@
       <v-toolbar color="cyan" dark>
         <v-toolbar-title>Media</v-toolbar-title>
           <v-spacer></v-spacer>
-      <v-btn icon dark>
-        <v-icon>search</v-icon>
-      </v-btn>
+          <v-text-field
+            light
+            prepend-icon="search"
+            color="cyan"
+            v-model="searchText"
+            solo append-icon="cancel" hide-details single-line>
+          </v-text-field>
       </v-toolbar>
 
       <v-layout row wrap>
