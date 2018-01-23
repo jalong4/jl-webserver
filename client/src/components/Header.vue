@@ -1,7 +1,12 @@
 <template>
   <v-toolbar fixed class="cyan" dark>
     <v-toolbar-title class="mr-4">
-      JL-Dev Portal
+      <router-link
+        class="home"
+        tag="span"
+        :to="{name: 'root'}">
+        JL-Dev Portal
+      </router-link>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -11,9 +16,7 @@
         v-if="!$store.state.isUserLoggedIn"
         flat
         dark
-        :to="{
-          name: 'login'
-        }">
+        :to="{name: 'login'}">
         Login
       </v-btn>
     </v-toolbar-items>
@@ -55,7 +58,8 @@ export default {
 .home {
   cursor: pointer;
 }
+
 .home:hover {
-  color: #E9E;
+  background-color: #67c1d6;
 }
 </style>

@@ -6,7 +6,7 @@
       </v-flex>
 
       <v-flex xs4>
-        <v-date-picker color="cyan" landscape></v-date-picker>
+        <v-date-picker color="cyan" :value="date" landscape></v-date-picker>
       </v-flex>
     </v-layout>
 
@@ -15,7 +15,7 @@
         <projects :projects="projects"/>
       </v-flex>
       <v-flex xs4>
-        <v-time-picker color="cyan" landscape></v-time-picker>
+        <v-time-picker color="cyan" :value="date" landscape></v-time-picker>
       </v-flex>
     </v-layout>
 
@@ -34,7 +34,8 @@ export default {
       media: [],
       projects: [],
       mediaSearchText: '',
-      projectsSearchText: ''
+      projectsSearchText: '',
+      date: null
     }
   },
   methods: {
