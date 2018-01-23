@@ -33,8 +33,6 @@ export default {
     return {
       media: [],
       projects: [],
-      mediaSearchText: '',
-      projectsSearchText: '',
       date: null
     }
   },
