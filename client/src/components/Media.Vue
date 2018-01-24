@@ -52,12 +52,15 @@ export default {
   methods: {
     async updateFavorite (mediaId, index) {
       let newValue = !this.media[index].isFavorite
-      this.media[index].isFavorite = newValue
+
+      let mediaItem = this.media[index]
+      mediaItem.isFavorite = newValue
 
       try {
         this.response = (newValue)
           ? (await MediaServices.setFavorite(mediaId, this.user._id)).data
           : (await MediaServices.clearFavorite(mediaId, this.user._id)).data
+        this.media.splice(index, 1, mediaItem)
       } catch (err) {
         console.log('Error updating favorite ', err)
       }
