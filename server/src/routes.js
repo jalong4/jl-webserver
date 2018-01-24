@@ -19,6 +19,8 @@ module.exports = (app) => {
   app.post('/api/media', MediaController.post)
   app.get('/api/media/:id', MediaController.get)
   app.delete('/api/media/:id', MediaController.delete)
+  app.put('/api/media/:id/setfav', MediaController.setFavorite)
+  app.put('/api/media/:id/clearfav', MediaController.clearFavorite)
 
   app.get('/api/projects', ProjectsController.index)
   app.get('/api/projects', ProjectsController.index)

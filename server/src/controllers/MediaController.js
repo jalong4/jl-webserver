@@ -36,7 +36,8 @@ module.exports = {
     })
   },
   get (req, res) {
-    Media.get(req.params.id, function (err, doc) {
+    let populate = (req.query.populate === 'true')
+    Media.get(req.params.id, populate, function (err, doc) {
       if (err) {
         res.status(400).send({message: err.message})
       } else {
@@ -44,6 +45,31 @@ module.exports = {
       }
     })
   },
+
+  setFavorite (req, res) {
+    let mediaId = req.params.id
+    let userId = req.query.id
+    Media.setFavorite(mediaId, userId, function (err, doc) {
+      if (err) {
+        res.status(400).send({message: err.message})
+      } else {
+        res.json(doc)
+      }
+    })
+  },
+
+  clearFavorite (req, res) {
+    let mediaId = req.params.id
+    let userId = req.query.id
+    Media.clearFavorite(mediaId, userId, function (err, doc) {
+      if (err) {
+        res.status(400).send({message: err.message})
+      } else {
+        res.json(doc)
+      }
+    })
+  },
+
   delete (req, res) {
     Media.delete(req.params.id, function (err, doc) {
       // const statusCode = JSON.parse(response).n

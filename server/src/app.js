@@ -20,8 +20,17 @@ mongoose.connect(config.mongoDbUri, function (err, db) {
 // Middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+
 app.use(morgan('combined'))
 app.use(cors())
+
+app.use(function (req, res, next) {
+  for (let key in req.query) {
+    let value = req.query[key]
+    req.query[key.toLowerCase()] = value.toLowerCase()
+  }
+  next()
+})
 
 require('./routes')(app)
 

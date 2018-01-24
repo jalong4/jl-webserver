@@ -12,18 +12,18 @@
     </v-toolbar>
 
     <v-layout row wrap>
-      <v-flex xs3 v-for="mediaItem in media" :key="mediaItem._id">
-        <v-card>
+      <v-flex xs3 v-for="(mediaItem, index) in media" :key="mediaItem._id">
+        <v-card  style="background-color: rgb(230, 230, 230);">
           <v-card-media :src="mediaItem.url" height="200px">
           </v-card-media>
-          <v-card-actions class="white">
+          <v-card-actions v-if="isUserLoggedIn">
             <div v-text="mediaItem.filename"></div>
             <v-spacer></v-spacer>
-            <v-btn icon>
+            <v-btn icon @click="updateFavorite(mediaItem._id, index)" v-if="media[index].isFavorite">
               <v-icon>favorite</v-icon>
             </v-btn>
-            <v-btn icon>
-              <v-icon>bookmark</v-icon>
+            <v-btn icon @click="updateFavorite(mediaItem._id, index)" v-if="!media[index].isFavorite">
+              <v-icon color="white">favorite</v-icon>
             </v-btn>
             <v-btn icon>
               <v-icon>share</v-icon>
@@ -37,10 +37,31 @@
 </template>
 
 <script>
-
+import {mapState} from 'vuex'
+import MediaServices from '@/services/MediaServices'
 export default {
   props: [
     'media'
-  ]
+  ],
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user'
+    ])
+  },
+  methods: {
+    async updateFavorite (mediaId, index) {
+      let newValue = !this.media[index].isFavorite
+      this.media[index].isFavorite = newValue
+
+      try {
+        this.response = (newValue)
+          ? (await MediaServices.setFavorite(mediaId, this.user._id)).data
+          : (await MediaServices.clearFavorite(mediaId, this.user._id)).data
+      } catch (err) {
+        console.log('Error updating favorite ', err)
+      }
+    }
+  }
 }
 </script>

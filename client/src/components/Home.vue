@@ -22,7 +22,7 @@
   </v-container>
 </template>
 <script>
-
+import {mapState} from 'vuex'
 import Media from '@/components/Media'
 import Projects from '@/components/Projects'
 import MediaServices from '@/services/MediaServices'
@@ -32,11 +32,16 @@ export default {
   data () {
     return {
       media: [],
+      isFavorite: [],
       projects: [],
       date: null
     }
   },
-  methods: {
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user'
+    ])
   },
   components: {
     Media,
@@ -44,6 +49,17 @@ export default {
   },
   async mounted () {
     this.media = (await MediaServices.index()).data
+    this.media = this.media.map((item, index) => {
+      if (item.favorites) {
+        for (let i = 0; i < item.favorites.length; i++) {
+          if (item.favorites[i] === this.user._id) {
+            item.isFavorite = true
+            return item
+          }
+        }
+      }
+      return item
+    })
     this.projects = (await ProjectsServices.index()).data
   }
 }

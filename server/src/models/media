@@ -5,7 +5,8 @@ const mediaSchema = mongoose.Schema({
   size: { type: Number, required: true},
   url: {type: String, required: true},
   tags: [{type: String}],
-  create_date: {type: Date}
+  create_date: {type: Date},
+  favorites: [{ type: mongoose.Schema.ObjectId, ref: 'Users' }]
 })
 
 var Media = module.exports = mongoose.model('Media', mediaSchema)
@@ -15,8 +16,20 @@ module.exports.index = function (callback, limit) {
 }
 
 // Get
-module.exports.get = function (id, callback) {
-  Media.findById(id, callback)
+module.exports.get = function (id, populate, callback) {
+  Media.findById(id, function (err, results) {
+    Media.populate(results, {path: 'Users'}, callback)
+  })
+}
+
+// setFavorite
+module.exports.setFavorite = function (mediaId, userId, callback) {
+  Media.update({ _id: mediaId }, { $addToSet: { favorites: userId } }, callback)
+}
+
+// clearFavorite
+module.exports.clearFavorite = function (mediaId, userId, callback) {
+  Media.update({ _id: mediaId }, { $pull: { favorites: userId } }, callback)
 }
 
 // Search

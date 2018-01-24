@@ -3,7 +3,12 @@ const bcrypt = require('bcrypt-nodejs')
 
 const mongoose = require('mongoose')
 const usersSchema = mongoose.Schema({
-  email: {type: String, required: true, index: { unique: true }},
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    required: true,
+    index: { unique: true }},
   password: {type: String, required: true},
   create_date: {type: Date, default: Date.now}
 })
