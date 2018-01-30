@@ -1,5 +1,6 @@
 const AuthController = require('./controllers/AuthController')
 const AuthControllerPolicy = require('./policies/AuthControllerPolicy')
+const GoogleApisController = require('./controllers/GoogleApisController')
 const UsersController = require('./controllers/UsersController')
 const MediaController = require('./controllers/MediaController')
 const ProjectsController = require('./controllers/ProjectsController')
@@ -8,6 +9,9 @@ const ProjectsController = require('./controllers/ProjectsController')
 module.exports = (app) => {
   app.post('/api/login', AuthController.login)
   app.post('/api/register', AuthControllerPolicy.register, AuthController.register)
+
+  app.get('/api/google', GoogleApisController.get)
+  app.get('/api/google/oauth2callback', GoogleApisController.oauth2callback)
 
   app.get('/api/users', UsersController.index)
   app.get('/api/user/:id', UsersController.get)
